@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { RecentRecords } from "@/app/components/RecentRecords";
+import { MoodTrendChart } from "@/app/components/MoodTrendChart";
 import { LogoutButton } from "@/app/components/LogoutButton";
 
 export default function DashboardPage() {
@@ -21,6 +22,13 @@ export default function DashboardPage() {
             <LogoutButton />
           </div>
         </header>
+
+        <section className="mb-8">
+          <h2 className="text-xs font-semibold tracking-widest text-stone-400 uppercase mb-4">
+            推移グラフ
+          </h2>
+          <MoodTrendChart />
+        </section>
 
         <section>
           <h2 className="text-xs font-semibold tracking-widest text-stone-400 uppercase mb-4">
