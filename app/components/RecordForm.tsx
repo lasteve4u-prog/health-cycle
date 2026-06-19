@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { type MoodLevel, type ConditionLevel } from "@/types/database";
+import {
+  type ConditionLevel,
+  type HealthRecord,
+  type MoodLevel,
+} from "@/types/database";
 import { LevelSelector } from "./LevelSelector";
 import { SymptomPicker } from "./SymptomPicker";
 
@@ -27,20 +32,37 @@ type Status = "idle" | "loading" | "success" | "error";
 const sectionLabel =
   "mb-2 block text-xs font-medium text-[var(--color-text-tertiary)]";
 
-export function RecordForm() {
-  const [mood, setMood] = useState<MoodLevel | null>(null);
-  const [condition, setCondition] = useState<ConditionLevel | null>(null);
-  const [symptoms, setSymptoms] = useState<string[]>([]);
-  const [memo, setMemo] = useState("");
-  const [status, setStatus] = useState<Status>("idle");
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const today = new Date().toLocaleDateString("ja-JP", {
+function formatJaDate(isoDate: string) {
+  return new Date(isoDate + "T00:00:00").toLocaleDateString("ja-JP", {
     year: "numeric",
     month: "long",
     day: "numeric",
     weekday: "short",
   });
+}
+
+interface RecordFormProps {
+  initialRecord?: HealthRecord;
+}
+
+export function RecordForm({ initialRecord }: RecordFormProps = {}) {
+  const router = useRouter();
+  const isEdit = Boolean(initialRecord);
+
+  const [mood, setMood] = useState<MoodLevel | null>(
+    (initialRecord?.mood as MoodLevel) ?? null,
+  );
+  const [condition, setCondition] = useState<ConditionLevel | null>(
+    (initialRecord?.condition as ConditionLevel) ?? null,
+  );
+  const [symptoms, setSymptoms] = useState<string[]>(initialRecord?.symptoms ?? []);
+  const [memo, setMemo] = useState(initialRecord?.memo ?? "");
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const recordedAtIso =
+    initialRecord?.recorded_at ?? new Date().toISOString().split("T")[0];
+  const recordedAtLabel = formatJaDate(recordedAtIso);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,20 +80,24 @@ export function RecordForm() {
       return;
     }
 
-    const { error } = await supabase.from("records").upsert({
-      user_id: user.id,
-      recorded_at: new Date().toISOString().split("T")[0],
-      mood,
-      condition,
-      symptoms,
-      memo: memo.trim() || null,
-    }, { onConflict: "user_id,recorded_at" });
+    const { error } = await supabase.from("records").upsert(
+      {
+        user_id: user.id,
+        recorded_at: recordedAtIso,
+        mood,
+        condition,
+        symptoms,
+        memo: memo.trim() || null,
+      },
+      { onConflict: "user_id,recorded_at" },
+    );
 
     if (error) {
       setStatus("error");
       setErrorMessage("保存に失敗しました。もう一度お試しください。");
     } else {
       setStatus("success");
+      router.refresh();
     }
   };
 
@@ -88,24 +114,37 @@ export function RecordForm() {
         </div>
         <div>
           <h2 className="text-lg font-semibold text-[var(--color-text-tertiary)]">
-            記録しました
+            {isEdit ? "更新しました" : "記録しました"}
           </h2>
           <p className="mt-1 text-xs font-light text-[var(--color-text-primary)]">
-            {today}
+            {recordedAtLabel}
           </p>
         </div>
-        <button
-          onClick={() => {
-            setMood(null);
-            setCondition(null);
-            setSymptoms([]);
-            setMemo("");
-            setStatus("idle");
-          }}
-          className="mt-1 rounded-[5px] border border-[var(--color-border-default)] bg-white px-4 py-2 text-sm font-medium text-[var(--color-text-tertiary)] transition-colors duration-200 hover:bg-[var(--color-surface-strong)]"
-        >
-          続けて記録する
-        </button>
+        <div className="mt-1 flex gap-2">
+          {isEdit ? (
+            <button
+              type="button"
+              onClick={() => router.push("/")}
+              className="rounded-[5px] bg-[var(--color-text-secondary)] px-4 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-[var(--color-purple-hover)]"
+            >
+              ダッシュボードへ
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => {
+                setMood(null);
+                setCondition(null);
+                setSymptoms([]);
+                setMemo("");
+                setStatus("idle");
+              }}
+              className="rounded-[5px] border border-[var(--color-border-default)] bg-white px-4 py-2 text-sm font-medium text-[var(--color-text-tertiary)] transition-colors duration-200 hover:bg-[var(--color-surface-strong)]"
+            >
+              続けて記録する
+            </button>
+          )}
+        </div>
       </div>
     );
   }
@@ -114,10 +153,10 @@ export function RecordForm() {
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="flex items-baseline justify-between border-b border-[var(--color-border-subtle)] pb-3">
         <span className="text-[11px] font-medium tracking-[0.14em] uppercase text-[var(--color-text-secondary)]">
-          Today
+          {isEdit ? "Editing" : "Today"}
         </span>
         <span className="text-sm font-medium text-[var(--color-text-tertiary)]">
-          {today}
+          {recordedAtLabel}
         </span>
       </div>
 
@@ -167,9 +206,13 @@ export function RecordForm() {
       <button
         type="submit"
         disabled={!mood || !condition || status === "loading"}
-        className="w-full rounded-[5px] bg-[var(--color-text-secondary)] py-2.5 text-sm font-medium text-[var(--color-text-inverse)] shadow-[var(--shadow-sm)] transition-colors duration-200 hover:bg-[var(--color-purple-hover)] disabled:cursor-not-allowed disabled:bg-[var(--color-text-secondary)]/40"
+        className="w-full rounded-[5px] bg-[var(--color-text-secondary)] py-2.5 text-sm font-medium text-white shadow-[var(--shadow-sm)] transition-colors duration-200 hover:bg-[var(--color-purple-hover)] disabled:cursor-not-allowed disabled:bg-[var(--color-text-secondary)]/40"
       >
-        {status === "loading" ? "保存中…" : "今日の記録を保存する"}
+        {status === "loading"
+          ? "保存中…"
+          : isEdit
+            ? "変更を保存する"
+            : "今日の記録を保存する"}
       </button>
     </form>
   );

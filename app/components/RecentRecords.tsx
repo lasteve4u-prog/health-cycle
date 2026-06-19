@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { type HealthRecord } from "@/types/database";
@@ -56,36 +57,45 @@ export function RecentRecords() {
   return (
     <ul className="space-y-2">
       {records.map((record) => (
-        <li
-          key={record.id}
-          className="rounded-[5px] border border-[var(--color-border-subtle)] bg-white p-4 transition-shadow duration-200 hover:shadow-[var(--shadow-sm)]"
-        >
-          <div className="flex items-center justify-between gap-2">
-            <p className="text-sm font-semibold text-[var(--color-text-tertiary)]">
-              {formatDate(record.recorded_at)}
-            </p>
-          </div>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            <MoodBadge value={record.mood} />
-            <ConditionBadge value={record.condition} />
-          </div>
-          {record.symptoms.length > 0 && (
-            <div className="mt-2 flex flex-wrap gap-1">
-              {record.symptoms.map((s) => (
-                <span
-                  key={s}
-                  className="rounded-[4px] border border-[var(--color-border-subtle)] bg-[var(--color-surface-strong)]/60 px-1.5 py-0.5 text-[11px] font-medium text-[var(--color-text-tertiary)]"
-                >
-                  {s}
-                </span>
-              ))}
+        <li key={record.id}>
+          <Link
+            href={`/record/${record.id}`}
+            aria-label={`${formatDate(record.recorded_at)}の記録を編集`}
+            className="group block rounded-[5px] border border-[var(--color-border-subtle)] bg-white p-4 transition-all duration-200 hover:border-[var(--color-border-strong)] hover:shadow-[var(--shadow-sm)]"
+          >
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-sm font-semibold text-[var(--color-text-tertiary)]">
+                {formatDate(record.recorded_at)}
+              </p>
+              <span
+                aria-hidden
+                className="text-xs font-medium text-[var(--color-text-secondary)] opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+              >
+                編集 →
+              </span>
             </div>
-          )}
-          {record.memo && (
-            <p className="mt-2 border-t border-[var(--color-border-subtle)] pt-2 text-xs font-light leading-relaxed text-[var(--color-text-primary)] line-clamp-2">
-              {record.memo}
-            </p>
-          )}
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              <MoodBadge value={record.mood} />
+              <ConditionBadge value={record.condition} />
+            </div>
+            {record.symptoms.length > 0 && (
+              <div className="mt-2 flex flex-wrap gap-1">
+                {record.symptoms.map((s) => (
+                  <span
+                    key={s}
+                    className="rounded-[4px] border border-[var(--color-border-subtle)] bg-[var(--color-surface-strong)]/60 px-1.5 py-0.5 text-[11px] font-medium text-[var(--color-text-tertiary)]"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            )}
+            {record.memo && (
+              <p className="mt-2 border-t border-[var(--color-border-subtle)] pt-2 text-xs font-light leading-relaxed text-[var(--color-text-primary)] line-clamp-2">
+                {record.memo}
+              </p>
+            )}
+          </Link>
         </li>
       ))}
     </ul>
