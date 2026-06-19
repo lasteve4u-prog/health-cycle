@@ -5,42 +5,50 @@ import { LogoutButton } from "@/app/components/LogoutButton";
 
 export default function DashboardPage() {
   return (
-    <main className="min-h-screen bg-[var(--color-surface-muted)]">
-      <div className="mx-auto max-w-md px-5 py-10">
-        <header className="mb-10 flex items-start justify-between gap-4">
-          <div>
-            <p className="text-[11px] font-bold tracking-[0.22em] text-[var(--color-text-primary)] uppercase">
-              health / cycle
+    <main className="min-h-screen bg-white">
+      {/* Hero strip — light accent surface */}
+      <div className="bg-[var(--color-surface-strong)]">
+        <div className="mx-auto max-w-md px-5 pt-10 pb-14">
+          <div className="flex items-start justify-between gap-4">
+            <p className="text-[11px] font-medium tracking-[0.14em] uppercase text-[var(--color-text-secondary)]">
+              health cycle
             </p>
-            <h1 className="mt-2 text-4xl font-extrabold leading-none text-[var(--color-text-primary)]">
-              Dashboard.
-            </h1>
+            <LogoutButton />
           </div>
-          <LogoutButton />
-        </header>
+          <h1 className="mt-3 text-[32px] font-semibold leading-[36px] tracking-tight text-[var(--color-text-tertiary)]">
+            ダッシュボード
+          </h1>
+          <p className="mt-2 text-sm font-light text-[var(--color-text-primary)]">
+            毎日の気分と体調を記録して、変化のリズムを見つけましょう。
+          </p>
+        </div>
+      </div>
 
+      <div className="mx-auto -mt-8 max-w-md px-5 pb-14">
         <Link
           href="/record"
-          className="mb-8 flex items-center justify-between rounded-[20.8px] bg-[var(--color-text-primary)] px-6 py-5 text-[var(--color-surface-muted)] shadow-[var(--shadow-card-strong)] transition-transform duration-100 hover:-translate-x-[1px] hover:-translate-y-[1px] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[rgb(16,24,32)_0px_0px_0px_2px,rgb(16,24,32)_2px_2px_0px_0px]"
+          className="group flex items-center justify-between rounded-[5px] bg-[var(--color-text-secondary)] px-5 py-4 text-[var(--color-text-inverse)] shadow-[var(--shadow-md)] transition-colors duration-200 hover:bg-[var(--color-purple-hover)]"
         >
-          <span className="text-base font-bold tracking-tight">＋ 今日を記録する</span>
-          <span aria-hidden className="text-2xl leading-none">→</span>
+          <span className="text-sm font-medium">今日の記録をつける</span>
+          <span aria-hidden className="text-sm transition-transform duration-200 group-hover:translate-x-0.5">
+            →
+          </span>
         </Link>
 
-        <section className="mb-10">
+        <section className="mt-10">
           <div className="mb-4 flex items-baseline justify-between">
-            <h2 className="text-xs font-bold tracking-[0.22em] uppercase text-[var(--color-text-primary)]">
+            <h2 className="text-xs font-semibold tracking-[0.08em] uppercase text-[var(--color-text-tertiary)]">
               推移グラフ
             </h2>
-            <span className="text-[11px] font-medium text-[var(--color-text-primary)]/60">
+            <span className="text-xs font-light text-[var(--color-text-primary)]">
               直近 30 日
             </span>
           </div>
           <MoodTrendChart />
         </section>
 
-        <section className="pb-12">
-          <h2 className="mb-4 text-xs font-bold tracking-[0.22em] uppercase text-[var(--color-text-primary)]">
+        <section className="mt-10">
+          <h2 className="mb-4 text-xs font-semibold tracking-[0.08em] uppercase text-[var(--color-text-tertiary)]">
             直近の記録
           </h2>
           <RecentRecords />

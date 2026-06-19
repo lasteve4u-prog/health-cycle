@@ -34,48 +34,51 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[var(--color-surface-muted)]">
-      <div className="mx-auto max-w-md px-5 py-16">
-        <header className="mb-10">
-          <p className="text-[11px] font-bold tracking-[0.22em] text-[var(--color-text-primary)] uppercase">
-            health / cycle
+    <main className="min-h-screen bg-white">
+      <div className="bg-[var(--color-surface-strong)]">
+        <div className="mx-auto max-w-md px-5 pt-12 pb-14">
+          <p className="text-[11px] font-medium tracking-[0.14em] uppercase text-[var(--color-text-secondary)]">
+            health cycle
           </p>
-          <h1 className="mt-2 text-4xl font-extrabold leading-none text-[var(--color-text-primary)]">
-            ログイン.
+          <h1 className="mt-3 text-[32px] font-semibold leading-[36px] tracking-tight text-[var(--color-text-tertiary)]">
+            ログイン
           </h1>
-        </header>
+          <p className="mt-2 text-sm font-light text-[var(--color-text-primary)]">
+            メールアドレス宛にログインリンクをお送りします。
+          </p>
+        </div>
+      </div>
 
-        <div className="rounded-[24px] border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-raised)] p-7 shadow-[var(--shadow-2)]">
+      <div className="mx-auto -mt-8 max-w-md px-5 pb-14">
+        <div className="rounded-[5px] border border-[var(--color-border-subtle)] bg-white p-7 shadow-[var(--shadow-md)]">
           {status === "sent" ? (
             <div className="py-4 text-center">
               <div
-                className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-strong)] text-2xl"
                 aria-hidden
+                className="mx-auto mb-5 flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-purple-soft)] text-[var(--color-text-secondary)]"
               >
-                ✉
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
               </div>
-              <h2 className="text-xl font-extrabold text-[var(--color-text-primary)]">
+              <h2 className="text-lg font-semibold text-[var(--color-text-tertiary)]">
                 メールを送信しました
               </h2>
-              <p className="mt-3 text-sm text-[var(--color-text-primary)]/70 leading-relaxed">
-                <span className="font-semibold text-[var(--color-text-primary)]">{email}</span>
+              <p className="mt-2 text-sm font-light leading-relaxed text-[var(--color-text-primary)]">
+                <span className="font-medium text-[var(--color-text-tertiary)]">{email}</span>
                 <br />
                 宛にログインリンクを送信しました。
               </p>
-              <p className="mt-4 text-xs text-[var(--color-text-primary)]/50">
+              <p className="mt-4 text-xs font-light text-[var(--color-text-primary)]">
                 メール内のリンクをクリックしてログインしてください。
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <p className="text-sm leading-relaxed text-[var(--color-text-primary)]/70">
-                メールアドレスを入力すると、ログイン用のリンクをお送りします。
-              </p>
-
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label
                   htmlFor="email"
-                  className="mb-2 block text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-text-primary)]"
+                  className="mb-1.5 block text-xs font-medium text-[var(--color-text-tertiary)]"
                 >
                   メールアドレス
                 </label>
@@ -86,14 +89,14 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="w-full rounded-[16px] border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-raised)] px-4 py-3 text-base font-medium text-[var(--color-text-primary)] placeholder-[var(--color-text-primary)]/30 transition-shadow duration-100 focus:outline-none focus:shadow-[var(--shadow-card-strong)]"
+                  className="w-full rounded-[5px] border border-[var(--color-border-default)] bg-white px-3 py-2.5 text-sm font-normal text-[var(--color-text-tertiary)] placeholder-[var(--color-text-primary)]/50 transition-shadow duration-200 focus:outline-none focus:border-[var(--color-text-secondary)] focus:shadow-[var(--shadow-focus)]"
                 />
               </div>
 
               {status === "error" && (
                 <p
                   role="alert"
-                  className="rounded-[12px] border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-raised)] px-3 py-2 text-sm font-semibold text-[var(--color-text-primary)]"
+                  className="rounded-[5px] border border-[var(--color-error)]/30 bg-[var(--color-error)]/5 px-3 py-2 text-xs font-medium text-[var(--color-error)]"
                 >
                   {errorMessage}
                 </p>
@@ -102,13 +105,17 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={!email || status === "loading"}
-                className="w-full rounded-[20.8px] border-2 border-[var(--color-text-primary)] bg-[var(--color-text-primary)] py-4 text-base font-bold text-[var(--color-surface-muted)] shadow-[var(--shadow-2)] transition-transform duration-100 hover:-translate-x-[1px] hover:-translate-y-[1px] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[rgb(16,24,32)_2px_2px_0px_0px] disabled:cursor-not-allowed disabled:bg-[var(--color-surface-raised)] disabled:text-[var(--color-text-primary)]/30 disabled:shadow-none disabled:hover:translate-x-0 disabled:hover:translate-y-0"
+                className="w-full rounded-[5px] bg-[var(--color-text-secondary)] py-2.5 text-sm font-medium text-[var(--color-text-inverse)] shadow-[var(--shadow-sm)] transition-colors duration-200 hover:bg-[var(--color-purple-hover)] disabled:cursor-not-allowed disabled:bg-[var(--color-text-secondary)]/40"
               >
-                {status === "loading" ? "送信中..." : "ログインリンクを送信"}
+                {status === "loading" ? "送信中…" : "ログインリンクを送信"}
               </button>
             </form>
           )}
         </div>
+
+        <p className="mt-5 text-center text-xs font-light text-[var(--color-text-primary)]">
+          初めての方も、メールアドレスだけで利用を始められます。
+        </p>
       </div>
     </main>
   );
