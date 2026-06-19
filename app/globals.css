@@ -1,67 +1,67 @@
 @import "tailwindcss";
 
 :root {
-  /* Color tokens */
-  --color-text-primary: #101820;
-  --color-surface-base: #000000;
-  --color-surface-muted: #f8ea36;
-  --color-surface-raised: #ffffff;
-  --color-surface-strong: #8dc975;
+  /* Color tokens — Stripe */
+  --color-text-primary: #50617a;     /* body text — cool gray-blue */
+  --color-text-secondary: #533afd;   /* accent — vibrant purple (links / CTA) */
+  --color-text-tertiary: #061b31;    /* heading — deep navy */
+  --color-text-inverse: #ffffff;     /* on dark surfaces */
+  --color-surface-base: #000000;     /* black surface (rare, dark sections) */
+  --color-surface-strong: #e3ecf7;   /* light blue-gray section accent */
+
+  /* Derived / supporting tokens */
+  --color-canvas: #ffffff;
+  --color-border-subtle: rgba(6, 27, 49, 0.08);
+  --color-border-default: rgba(6, 27, 49, 0.14);
+  --color-border-strong: rgba(6, 27, 49, 0.22);
+  --color-purple-hover: #4527e8;
+  --color-purple-soft: rgba(83, 58, 253, 0.08);
+  --color-error: #df1b41;
 
   /* Radius tokens */
-  --radius-xs: 5px;
-  --radius-sm: 12px;
-  --radius-md: 14.88px;
-  --radius-lg: 16px;
-  --radius-xl: 20.8px;
-  --radius-2xl: 24px;
-  --radius-step7: 31.8px;
-  --radius-step8: 44px;
+  --radius-xs: 4px;
+  --radius-sm: 5px;
 
-  /* Shadow tokens — signature brutalist offset + thick borders */
-  --shadow-1: rgb(16, 24, 32) 0px 0px 0px 2px;
-  --shadow-2: rgb(16, 24, 32) 6px 6px 0px 0px;
-  --shadow-3: rgb(16, 24, 32) 24px 24px 0px 0px;
-  --shadow-4: rgb(16, 24, 32) 0px 0px 0px 4px;
-  --shadow-card: rgb(16, 24, 32) 0px 0px 0px 2px, rgb(16, 24, 32) 6px 6px 0px 0px;
-  --shadow-card-strong: rgb(16, 24, 32) 0px 0px 0px 2px, rgb(16, 24, 32) 4px 4px 0px 0px;
+  /* Shadow tokens (Stripe-style: tight, subtle) */
+  --shadow-sm: 0 1px 1px rgba(6, 27, 49, 0.04), 0 2px 5px rgba(6, 27, 49, 0.06);
+  --shadow-md: 0 3px 6px rgba(6, 27, 49, 0.06), 0 8px 16px rgba(6, 27, 49, 0.06);
+  --shadow-focus: 0 0 0 1px var(--color-text-secondary), 0 0 0 4px rgba(83, 58, 253, 0.18);
 
   /* Motion tokens */
   --duration-instant: 100ms;
-  --duration-fast: 300ms;
-  --duration-normal: 400ms;
-  --duration-slow: 500ms;
-  --duration-slower: 750ms;
+  --duration-fast: 200ms;
+  --duration-normal: 240ms;
+  --duration-slow: 300ms;
+  --duration-slower: 400ms;
 }
 
 @theme inline {
-  --color-ink: var(--color-text-primary);
-  --color-canvas: var(--color-surface-muted);
-  --color-paper: var(--color-surface-raised);
-  --color-accent: var(--color-surface-strong);
-  --color-night: var(--color-surface-base);
-  --font-sans: var(--font-jakarta), "Plus Jakarta Sans Fallback", sans-serif;
+  --color-text: var(--color-text-primary);
+  --color-text-strong: var(--color-text-tertiary);
+  --color-accent: var(--color-text-secondary);
+  --color-paper: var(--color-canvas);
+  --color-accent-soft: var(--color-surface-strong);
+  --font-sans: var(--font-inter), "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body {
-  background: var(--color-surface-muted);
+  background: var(--color-canvas);
   color: var(--color-text-primary);
-  font-family: var(--font-jakarta), "Plus Jakarta Sans Fallback", sans-serif;
-  font-size: 20px;
+  font-family: var(--font-inter), "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 28px;
+  line-height: 20px;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Focus-visible — required by accessibility rules */
+/* Focus-visible — Stripe-style purple ring (WCAG 2.2 AA) */
 :where(button, a, input, textarea, [tabindex]):focus-visible {
-  outline: 3px solid var(--color-text-primary);
-  outline-offset: 3px;
-  border-radius: var(--radius-xs);
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--radius-sm);
 }
 
-/* Selection color */
 ::selection {
-  background: var(--color-text-primary);
-  color: var(--color-surface-muted);
+  background: rgba(83, 58, 253, 0.18);
+  color: var(--color-text-tertiary);
 }

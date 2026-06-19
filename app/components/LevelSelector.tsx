@@ -14,7 +14,7 @@ interface LevelSelectorProps {
 
 export function LevelSelector({ options, value, onChange }: LevelSelectorProps) {
   return (
-    <div className="grid grid-cols-5 gap-2">
+    <div className="grid grid-cols-5 gap-1.5">
       {options.map((opt) => {
         const selected = value === opt.value;
         return (
@@ -24,19 +24,23 @@ export function LevelSelector({ options, value, onChange }: LevelSelectorProps) 
             aria-pressed={selected}
             onClick={() => onChange(opt.value)}
             className={`
-              flex flex-col items-center justify-center gap-1.5 rounded-[14.88px] border-2 border-[var(--color-text-primary)] py-3 px-1
-              transition-transform duration-100
+              flex flex-col items-center justify-center gap-1 rounded-[5px] border px-1 py-2.5
+              transition-colors duration-200
               ${
                 selected
-                  ? "bg-[var(--color-surface-strong)] text-[var(--color-text-primary)] shadow-[rgb(16,24,32)_3px_3px_0px_0px] -translate-x-[1px] -translate-y-[1px]"
-                  : "bg-[var(--color-surface-raised)] text-[var(--color-text-primary)] hover:-translate-y-[1px]"
+                  ? "border-[var(--color-text-secondary)] bg-[var(--color-purple-soft)] text-[var(--color-text-secondary)]"
+                  : "border-[var(--color-border-default)] bg-white text-[var(--color-text-primary)] hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-strong)]/50"
               }
             `}
           >
-            <span aria-hidden className="text-xl leading-none">
+            <span aria-hidden className="text-lg leading-none">
               {opt.icon}
             </span>
-            <span className="text-[10px] font-bold leading-tight text-center">
+            <span
+              className={`text-[10px] leading-tight text-center ${
+                selected ? "font-medium" : "font-normal"
+              }`}
+            >
               {opt.label}
             </span>
           </button>

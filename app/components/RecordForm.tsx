@@ -25,7 +25,7 @@ const CONDITION_OPTIONS = [
 type Status = "idle" | "loading" | "success" | "error";
 
 const sectionLabel =
-  "mb-3 block text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-text-primary)]";
+  "mb-2 block text-xs font-medium text-[var(--color-text-tertiary)]";
 
 export function RecordForm() {
   const [mood, setMood] = useState<MoodLevel | null>(null);
@@ -77,18 +77,20 @@ export function RecordForm() {
 
   if (status === "success") {
     return (
-      <div className="flex flex-col items-center justify-center gap-5 py-12 text-center">
+      <div className="flex flex-col items-center justify-center gap-4 py-10 text-center">
         <div
           aria-hidden
-          className="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-strong)] text-3xl"
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-purple-soft)] text-[var(--color-text-secondary)]"
         >
-          ✓
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
         </div>
         <div>
-          <h2 className="text-2xl font-extrabold text-[var(--color-text-primary)]">
+          <h2 className="text-lg font-semibold text-[var(--color-text-tertiary)]">
             記録しました
           </h2>
-          <p className="mt-1 text-sm text-[var(--color-text-primary)]/60">
+          <p className="mt-1 text-xs font-light text-[var(--color-text-primary)]">
             {today}
           </p>
         </div>
@@ -100,7 +102,7 @@ export function RecordForm() {
             setMemo("");
             setStatus("idle");
           }}
-          className="mt-2 rounded-full border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-raised)] px-5 py-2 text-sm font-bold text-[var(--color-text-primary)] transition-transform duration-100 hover:-translate-y-[1px]"
+          className="mt-1 rounded-[5px] border border-[var(--color-border-default)] bg-white px-4 py-2 text-sm font-medium text-[var(--color-text-tertiary)] transition-colors duration-200 hover:bg-[var(--color-surface-strong)]"
         >
           続けて記録する
         </button>
@@ -109,14 +111,14 @@ export function RecordForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-7">
-      <div className="rounded-[16px] border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-muted)] px-4 py-3 text-center">
-        <p className="text-[10px] font-bold tracking-[0.28em] uppercase text-[var(--color-text-primary)]/70">
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="flex items-baseline justify-between border-b border-[var(--color-border-subtle)] pb-3">
+        <span className="text-[11px] font-medium tracking-[0.14em] uppercase text-[var(--color-text-secondary)]">
           Today
-        </p>
-        <p className="mt-1 text-base font-bold text-[var(--color-text-primary)]">
+        </span>
+        <span className="text-sm font-medium text-[var(--color-text-tertiary)]">
           {today}
-        </p>
+        </span>
       </div>
 
       <section>
@@ -147,16 +149,16 @@ export function RecordForm() {
         <textarea
           value={memo}
           onChange={(e) => setMemo(e.target.value)}
-          placeholder="今日の気づきや出来事..."
+          placeholder="今日の気づきや出来事…"
           rows={3}
-          className="w-full rounded-[16px] border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-raised)] px-4 py-3 text-sm font-medium text-[var(--color-text-primary)] placeholder-[var(--color-text-primary)]/30 resize-none transition-shadow duration-100 focus:outline-none focus:shadow-[var(--shadow-card-strong)]"
+          className="w-full rounded-[5px] border border-[var(--color-border-default)] bg-white px-3 py-2.5 text-sm font-normal text-[var(--color-text-tertiary)] placeholder-[var(--color-text-primary)]/50 resize-none transition-shadow duration-200 focus:outline-none focus:border-[var(--color-text-secondary)] focus:shadow-[var(--shadow-focus)]"
         />
       </section>
 
       {status === "error" && (
         <p
           role="alert"
-          className="rounded-[12px] border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-raised)] px-3 py-2 text-center text-sm font-semibold text-[var(--color-text-primary)]"
+          className="rounded-[5px] border border-[var(--color-error)]/30 bg-[var(--color-error)]/5 px-3 py-2 text-xs font-medium text-[var(--color-error)]"
         >
           {errorMessage}
         </p>
@@ -165,9 +167,9 @@ export function RecordForm() {
       <button
         type="submit"
         disabled={!mood || !condition || status === "loading"}
-        className="w-full rounded-[20.8px] border-2 border-[var(--color-text-primary)] bg-[var(--color-text-primary)] py-4 text-base font-bold text-[var(--color-surface-muted)] shadow-[var(--shadow-2)] transition-transform duration-100 hover:-translate-x-[1px] hover:-translate-y-[1px] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[rgb(16,24,32)_2px_2px_0px_0px] disabled:cursor-not-allowed disabled:bg-[var(--color-surface-raised)] disabled:text-[var(--color-text-primary)]/30 disabled:shadow-none disabled:hover:translate-x-0 disabled:hover:translate-y-0"
+        className="w-full rounded-[5px] bg-[var(--color-text-secondary)] py-2.5 text-sm font-medium text-[var(--color-text-inverse)] shadow-[var(--shadow-sm)] transition-colors duration-200 hover:bg-[var(--color-purple-hover)] disabled:cursor-not-allowed disabled:bg-[var(--color-text-secondary)]/40"
       >
-        {status === "loading" ? "保存中..." : "今日の記録を保存する"}
+        {status === "loading" ? "保存中…" : "今日の記録を保存する"}
       </button>
     </form>
   );

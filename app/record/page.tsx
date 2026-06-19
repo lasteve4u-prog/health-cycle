@@ -7,31 +7,36 @@ export const metadata = {
 
 export default function RecordPage() {
   return (
-    <main className="min-h-screen bg-[var(--color-surface-muted)]">
-      <div className="mx-auto max-w-md px-5 py-10">
-        <header className="mb-8 flex items-start justify-between gap-4">
-          <div>
-            <p className="text-[11px] font-bold tracking-[0.22em] text-[var(--color-text-primary)] uppercase">
-              health / cycle
+    <main className="min-h-screen bg-white">
+      <div className="bg-[var(--color-surface-strong)]">
+        <div className="mx-auto max-w-md px-5 pt-10 pb-14">
+          <div className="flex items-start justify-between gap-4">
+            <p className="text-[11px] font-medium tracking-[0.14em] uppercase text-[var(--color-text-secondary)]">
+              health cycle
             </p>
-            <h1 className="mt-2 text-4xl font-extrabold leading-none text-[var(--color-text-primary)]">
-              今日の記録.
-            </h1>
+            <Link
+              href="/"
+              className="text-sm font-medium text-[var(--color-text-secondary)] transition-colors duration-200 hover:text-[var(--color-purple-hover)]"
+            >
+              ← 戻る
+            </Link>
           </div>
-          <Link
-            href="/"
-            className="rounded-full border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-raised)] px-3 py-1.5 text-xs font-bold text-[var(--color-text-primary)] transition-transform duration-100 hover:-translate-y-[1px]"
-          >
-            ← 戻る
-          </Link>
-        </header>
+          <h1 className="mt-3 text-[32px] font-semibold leading-[36px] tracking-tight text-[var(--color-text-tertiary)]">
+            今日の記録
+          </h1>
+          <p className="mt-2 text-sm font-light text-[var(--color-text-primary)]">
+            気分と体調、症状を 1 分で記録できます。
+          </p>
+        </div>
+      </div>
 
-        <div className="rounded-[24px] border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-raised)] p-6 shadow-[var(--shadow-2)]">
+      <div className="mx-auto -mt-8 max-w-md px-5 pb-14">
+        <div className="rounded-[5px] border border-[var(--color-border-subtle)] bg-white p-6 shadow-[var(--shadow-md)]">
           <RecordForm />
         </div>
 
-        <p className="mt-6 text-center text-xs text-[var(--color-text-primary)]/60">
-          記録は1日1件、上書き保存されます。
+        <p className="mt-6 text-center text-xs font-light text-[var(--color-text-primary)]">
+          記録は 1 日 1 件、上書き保存されます。
         </p>
       </div>
     </main>
