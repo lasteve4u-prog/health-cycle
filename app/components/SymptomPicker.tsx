@@ -24,13 +24,15 @@ export function SymptomPicker({ selected, onChange }: SymptomPickerProps) {
           <button
             key={symptom}
             type="button"
+            aria-pressed={active}
             onClick={() => toggle(symptom)}
             className={`
-              rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-150
-              focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1C3130]
-              ${active
-                ? "bg-[#1C3130] text-stone-50"
-                : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+              rounded-full border-2 border-[var(--color-text-primary)] px-3.5 py-1.5 text-sm font-bold
+              transition-transform duration-100
+              ${
+                active
+                  ? "bg-[var(--color-text-primary)] text-[var(--color-surface-muted)] shadow-[rgb(16,24,32)_2px_2px_0px_0px] -translate-x-[1px] -translate-y-[1px]"
+                  : "bg-[var(--color-surface-raised)] text-[var(--color-text-primary)] hover:-translate-y-[1px]"
               }
             `}
           >

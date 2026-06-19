@@ -24,6 +24,9 @@ const CONDITION_OPTIONS = [
 
 type Status = "idle" | "loading" | "success" | "error";
 
+const sectionLabel =
+  "mb-3 block text-[11px] font-bold tracking-[0.22em] uppercase text-[var(--color-text-primary)]";
+
 export function RecordForm() {
   const [mood, setMood] = useState<MoodLevel | null>(null);
   const [condition, setCondition] = useState<ConditionLevel | null>(null);
@@ -74,10 +77,21 @@ export function RecordForm() {
 
   if (status === "success") {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-16 text-center">
-        <div className="text-5xl">🌿</div>
-        <h2 className="text-xl font-semibold text-stone-800">記録しました</h2>
-        <p className="text-stone-500 text-sm">{today}の体調を記録しました</p>
+      <div className="flex flex-col items-center justify-center gap-5 py-12 text-center">
+        <div
+          aria-hidden
+          className="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-strong)] text-3xl"
+        >
+          ✓
+        </div>
+        <div>
+          <h2 className="text-2xl font-extrabold text-[var(--color-text-primary)]">
+            記録しました
+          </h2>
+          <p className="mt-1 text-sm text-[var(--color-text-primary)]/60">
+            {today}
+          </p>
+        </div>
         <button
           onClick={() => {
             setMood(null);
@@ -86,7 +100,7 @@ export function RecordForm() {
             setMemo("");
             setStatus("idle");
           }}
-          className="mt-2 rounded-full bg-stone-100 px-5 py-2 text-sm font-medium text-stone-700 hover:bg-stone-200 transition-colors"
+          className="mt-2 rounded-full border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-raised)] px-5 py-2 text-sm font-bold text-[var(--color-text-primary)] transition-transform duration-100 hover:-translate-y-[1px]"
         >
           続けて記録する
         </button>
@@ -95,18 +109,18 @@ export function RecordForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
-      {/* 日付 */}
-      <div className="text-center">
-        <p className="text-sm text-stone-400 tracking-wide uppercase">Today</p>
-        <p className="text-lg font-medium text-stone-700 mt-0.5">{today}</p>
+    <form onSubmit={handleSubmit} className="space-y-7">
+      <div className="rounded-[16px] border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-muted)] px-4 py-3 text-center">
+        <p className="text-[10px] font-bold tracking-[0.28em] uppercase text-[var(--color-text-primary)]/70">
+          Today
+        </p>
+        <p className="mt-1 text-base font-bold text-[var(--color-text-primary)]">
+          {today}
+        </p>
       </div>
 
-      {/* 気分 */}
       <section>
-        <h2 className="text-xs font-semibold tracking-widest text-stone-400 uppercase mb-3">
-          気分
-        </h2>
+        <h2 className={sectionLabel}>気分</h2>
         <LevelSelector
           options={MOOD_OPTIONS}
           value={mood}
@@ -114,11 +128,8 @@ export function RecordForm() {
         />
       </section>
 
-      {/* 体調 */}
       <section>
-        <h2 className="text-xs font-semibold tracking-widest text-stone-400 uppercase mb-3">
-          体調
-        </h2>
+        <h2 className={sectionLabel}>体調</h2>
         <LevelSelector
           options={CONDITION_OPTIONS}
           value={condition}
@@ -126,38 +137,35 @@ export function RecordForm() {
         />
       </section>
 
-      {/* 症状 */}
       <section>
-        <h2 className="text-xs font-semibold tracking-widest text-stone-400 uppercase mb-3">
-          症状（複数選択可）
-        </h2>
+        <h2 className={sectionLabel}>症状（複数選択可）</h2>
         <SymptomPicker selected={symptoms} onChange={setSymptoms} />
       </section>
 
-      {/* メモ */}
       <section>
-        <h2 className="text-xs font-semibold tracking-widest text-stone-400 uppercase mb-3">
-          メモ
-        </h2>
+        <h2 className={sectionLabel}>メモ</h2>
         <textarea
           value={memo}
           onChange={(e) => setMemo(e.target.value)}
-          placeholder="今日の気づきや出来事を記録しておきましょう..."
+          placeholder="今日の気づきや出来事..."
           rows={3}
-          className="w-full rounded-xl bg-stone-100 px-4 py-3 text-sm text-stone-700 placeholder-stone-400 resize-none focus:outline-none focus:ring-2 focus:ring-[#1C3130] transition"
+          className="w-full rounded-[16px] border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-raised)] px-4 py-3 text-sm font-medium text-[var(--color-text-primary)] placeholder-[var(--color-text-primary)]/30 resize-none transition-shadow duration-100 focus:outline-none focus:shadow-[var(--shadow-card-strong)]"
         />
       </section>
 
-      {/* エラー */}
       {status === "error" && (
-        <p className="text-sm text-red-600 text-center">{errorMessage}</p>
+        <p
+          role="alert"
+          className="rounded-[12px] border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-raised)] px-3 py-2 text-center text-sm font-semibold text-[var(--color-text-primary)]"
+        >
+          {errorMessage}
+        </p>
       )}
 
-      {/* 送信 */}
       <button
         type="submit"
         disabled={!mood || !condition || status === "loading"}
-        className="w-full rounded-full bg-[#1C3130] py-3.5 text-sm font-semibold text-stone-50 transition-all hover:bg-[#2a4a48] disabled:opacity-40 disabled:cursor-not-allowed"
+        className="w-full rounded-[20.8px] border-2 border-[var(--color-text-primary)] bg-[var(--color-text-primary)] py-4 text-base font-bold text-[var(--color-surface-muted)] shadow-[var(--shadow-2)] transition-transform duration-100 hover:-translate-x-[1px] hover:-translate-y-[1px] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[rgb(16,24,32)_2px_2px_0px_0px] disabled:cursor-not-allowed disabled:bg-[var(--color-surface-raised)] disabled:text-[var(--color-text-primary)]/30 disabled:shadow-none disabled:hover:translate-x-0 disabled:hover:translate-y-0"
       >
         {status === "loading" ? "保存中..." : "今日の記録を保存する"}
       </button>

@@ -21,18 +21,24 @@ export function LevelSelector({ options, value, onChange }: LevelSelectorProps) 
           <button
             key={opt.value}
             type="button"
+            aria-pressed={selected}
             onClick={() => onChange(opt.value)}
             className={`
-              flex flex-col items-center gap-1.5 rounded-xl py-3 px-1 transition-all duration-150
-              focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1C3130]
-              ${selected
-                ? "bg-[#1C3130] text-stone-50 shadow-md scale-105"
-                : "bg-stone-100 text-stone-500 hover:bg-stone-200"
+              flex flex-col items-center justify-center gap-1.5 rounded-[14.88px] border-2 border-[var(--color-text-primary)] py-3 px-1
+              transition-transform duration-100
+              ${
+                selected
+                  ? "bg-[var(--color-surface-strong)] text-[var(--color-text-primary)] shadow-[rgb(16,24,32)_3px_3px_0px_0px] -translate-x-[1px] -translate-y-[1px]"
+                  : "bg-[var(--color-surface-raised)] text-[var(--color-text-primary)] hover:-translate-y-[1px]"
               }
             `}
           >
-            <span className="text-xl leading-none">{opt.icon}</span>
-            <span className="text-[10px] font-medium leading-tight text-center">{opt.label}</span>
+            <span aria-hidden className="text-xl leading-none">
+              {opt.icon}
+            </span>
+            <span className="text-[10px] font-bold leading-tight text-center">
+              {opt.label}
+            </span>
           </button>
         );
       })}
