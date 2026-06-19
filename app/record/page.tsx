@@ -1,23 +1,38 @@
+import Link from "next/link";
 import { RecordForm } from "@/app/components/RecordForm";
 
 export const metadata = {
-  title: "体調を記録 | health cycle",
+  title: "今日の記録 | health cycle",
 };
 
 export default function RecordPage() {
   return (
-    <main className="min-h-screen bg-[#F5F3EF]">
-      <div className="mx-auto max-w-md px-4 py-10">
-        {/* ヘッダー */}
-        <header className="mb-10">
-          <p className="text-xs tracking-widest text-stone-400 uppercase">health cycle</p>
-          <h1 className="mt-1 text-2xl font-semibold text-stone-800">今日の記録</h1>
+    <main className="min-h-screen bg-[var(--color-surface-muted)]">
+      <div className="mx-auto max-w-md px-5 py-10">
+        <header className="mb-8 flex items-start justify-between gap-4">
+          <div>
+            <p className="text-[11px] font-bold tracking-[0.22em] text-[var(--color-text-primary)] uppercase">
+              health / cycle
+            </p>
+            <h1 className="mt-2 text-4xl font-extrabold leading-none text-[var(--color-text-primary)]">
+              今日の記録.
+            </h1>
+          </div>
+          <Link
+            href="/"
+            className="rounded-full border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-raised)] px-3 py-1.5 text-xs font-bold text-[var(--color-text-primary)] transition-transform duration-100 hover:-translate-y-[1px]"
+          >
+            ← 戻る
+          </Link>
         </header>
 
-        {/* フォーム */}
-        <div className="rounded-2xl bg-white p-6 shadow-sm">
+        <div className="rounded-[24px] border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-raised)] p-6 shadow-[var(--shadow-2)]">
           <RecordForm />
         </div>
+
+        <p className="mt-6 text-center text-xs text-[var(--color-text-primary)]/60">
+          記録は1日1件、上書き保存されます。
+        </p>
       </div>
     </main>
   );

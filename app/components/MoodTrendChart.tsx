@@ -19,6 +19,9 @@ interface ChartPoint {
   condition: number;
 }
 
+const INK = "#101820";
+const ACCENT = "#8dc975";
+
 function formatShortDate(dateStr: string) {
   const d = new Date(dateStr + "T00:00:00");
   return `${d.getMonth() + 1}/${d.getDate()}`;
@@ -53,74 +56,91 @@ export function MoodTrendChart() {
   }, []);
 
   if (loading) {
-    return <div className="h-64 rounded-xl bg-stone-100 animate-pulse" />;
+    return (
+      <div className="h-64 rounded-[20.8px] border-2 border-[var(--color-text-primary)]/20 bg-[var(--color-surface-raised)]/40 animate-pulse" />
+    );
   }
 
   if (data.length === 0) {
     return (
-      <div className="rounded-xl border border-dashed border-stone-300 py-12 text-center">
-        <p className="text-2xl mb-2">📈</p>
-        <p className="text-sm text-stone-500">グラフを表示するデータがありません</p>
-        <p className="text-xs text-stone-400 mt-1">記録を続けると推移が見られます</p>
+      <div className="rounded-[20.8px] border-2 border-dashed border-[var(--color-text-primary)] bg-[var(--color-surface-raised)] py-12 text-center">
+        <p className="text-2xl" aria-hidden>
+          ▱
+        </p>
+        <p className="mt-2 text-sm font-bold text-[var(--color-text-primary)]">
+          グラフを表示するデータがありません
+        </p>
+        <p className="mt-1 text-xs text-[var(--color-text-primary)]/60">
+          記録を続けると推移が見られます
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-xl bg-white p-4 shadow-sm">
-      <div className="flex items-center gap-4 mb-3 px-2">
-        <div className="flex items-center gap-1.5">
-          <span className="block w-3 h-0.5 rounded-full bg-[#a78bfa]" />
-          <span className="text-xs text-stone-600">気分</span>
+    <div className="rounded-[20.8px] border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-raised)] p-4 shadow-[var(--shadow-card-strong)]">
+      <div className="mb-3 flex items-center gap-4 px-1">
+        <div className="flex items-center gap-2">
+          <span
+            aria-hidden
+            className="block h-3 w-3 rounded-full border-2 border-[var(--color-text-primary)] bg-[var(--color-text-primary)]"
+          />
+          <span className="text-xs font-bold text-[var(--color-text-primary)]">気分</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <span className="block w-3 h-0.5 rounded-full bg-[#34d399]" />
-          <span className="text-xs text-stone-600">体調</span>
+        <div className="flex items-center gap-2">
+          <span
+            aria-hidden
+            className="block h-3 w-3 rounded-full border-2 border-[var(--color-text-primary)] bg-[var(--color-surface-strong)]"
+          />
+          <span className="text-xs font-bold text-[var(--color-text-primary)]">体調</span>
         </div>
       </div>
       <div className="h-56">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 8, right: 12, left: -20, bottom: 0 }}>
-            <CartesianGrid stroke="#f5f5f4" strokeDasharray="3 3" vertical={false} />
+            <CartesianGrid stroke={INK} strokeDasharray="2 4" strokeOpacity={0.15} vertical={false} />
             <XAxis
               dataKey="date"
-              tick={{ fill: "#a8a29e", fontSize: 11 }}
+              tick={{ fill: INK, fontSize: 11, fontWeight: 600 }}
               tickLine={false}
-              axisLine={{ stroke: "#e7e5e4" }}
+              axisLine={{ stroke: INK, strokeWidth: 2 }}
             />
             <YAxis
               domain={[1, 5]}
               ticks={[1, 2, 3, 4, 5]}
-              tick={{ fill: "#a8a29e", fontSize: 11 }}
+              tick={{ fill: INK, fontSize: 11, fontWeight: 600 }}
               tickLine={false}
-              axisLine={{ stroke: "#e7e5e4" }}
+              axisLine={{ stroke: INK, strokeWidth: 2 }}
             />
             <Tooltip
               contentStyle={{
                 borderRadius: 12,
-                border: "1px solid #e7e5e4",
+                border: `2px solid ${INK}`,
+                background: "#ffffff",
                 fontSize: 12,
-                boxShadow: "0 1px 2px rgba(0,0,0,0.04)",
+                fontWeight: 600,
+                boxShadow: `${INK} 3px 3px 0px 0px`,
               }}
-              labelStyle={{ color: "#57534e", fontWeight: 600 }}
+              labelStyle={{ color: INK, fontWeight: 700 }}
+              cursor={{ stroke: INK, strokeWidth: 1, strokeDasharray: "2 4" }}
             />
             <Line
               type="monotone"
               dataKey="mood"
               name="気分"
-              stroke="#a78bfa"
-              strokeWidth={2}
-              dot={{ r: 3, fill: "#a78bfa" }}
-              activeDot={{ r: 5 }}
+              stroke={INK}
+              strokeWidth={2.5}
+              dot={{ r: 3, fill: INK, stroke: INK }}
+              activeDot={{ r: 5, fill: INK, stroke: INK, strokeWidth: 2 }}
             />
             <Line
               type="monotone"
               dataKey="condition"
               name="体調"
-              stroke="#34d399"
-              strokeWidth={2}
-              dot={{ r: 3, fill: "#34d399" }}
-              activeDot={{ r: 5 }}
+              stroke={ACCENT}
+              strokeWidth={2.5}
+              dot={{ r: 3, fill: ACCENT, stroke: INK, strokeWidth: 1 }}
+              activeDot={{ r: 5, fill: ACCENT, stroke: INK, strokeWidth: 2 }}
             />
           </LineChart>
         </ResponsiveContainer>
