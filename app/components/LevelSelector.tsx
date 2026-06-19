@@ -24,23 +24,19 @@ export function LevelSelector({ options, value, onChange }: LevelSelectorProps) 
             aria-pressed={selected}
             onClick={() => onChange(opt.value)}
             className={`
-              flex flex-col items-center justify-center gap-1 rounded-[5px] border px-1 py-2.5
+              flex flex-col items-center justify-center gap-1 rounded-[4px] border px-1 py-2.5
               transition-colors duration-200
               ${
                 selected
-                  ? "border-[var(--color-text-secondary)] bg-[var(--color-purple-soft)] text-[var(--color-text-secondary)]"
-                  : "border-[var(--color-border-default)] bg-white text-[var(--color-text-primary)] hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-strong)]/50"
+                  ? "border-black bg-black text-white"
+                  : "border-[var(--color-border-default)] bg-white text-black hover:border-black"
               }
             `}
           >
             <span aria-hidden className="text-lg leading-none">
               {opt.icon}
             </span>
-            <span
-              className={`text-[10px] leading-tight text-center ${
-                selected ? "font-medium" : "font-normal"
-              }`}
-            >
+            <span className="text-[10px] leading-tight text-center font-normal">
               {opt.label}
             </span>
           </button>
