@@ -1,67 +1,64 @@
 @import "tailwindcss";
 
 :root {
-  /* Color tokens — Stripe */
-  --color-text-primary: #50617a;     /* body text — cool gray-blue */
-  --color-text-secondary: #533afd;   /* accent — vibrant purple (links / CTA) */
-  --color-text-tertiary: #061b31;    /* heading — deep navy */
-  --color-text-inverse: #ffffff;     /* on dark surfaces */
-  --color-surface-base: #000000;     /* black surface (rare, dark sections) */
-  --color-surface-strong: #e3ecf7;   /* light blue-gray section accent */
+  /* Color tokens — Sephora-style monochrome + single blue accent */
+  --color-ink: #000000;              /* primary surface for CTAs / strong text */
+  --color-paper: #ffffff;            /* canvas */
+  --color-text: #666666;             /* default body text — neutral gray */
+  --color-text-strong: #000000;      /* headings */
+  --color-text-inverse: #ffffff;     /* on black surfaces */
+  --color-accent: #136bea;           /* link / focus accent */
 
-  /* Derived / supporting tokens */
-  --color-canvas: #ffffff;
-  --color-border-subtle: rgba(6, 27, 49, 0.08);
-  --color-border-default: rgba(6, 27, 49, 0.14);
-  --color-border-strong: rgba(6, 27, 49, 0.22);
-  --color-purple-hover: #4527e8;
-  --color-purple-soft: rgba(83, 58, 253, 0.08);
-  --color-error: #df1b41;
+  /* Borders */
+  --color-border-subtle: #ececec;
+  --color-border-default: #d6d6d6;
+  --color-border-strong: #000000;
+
+  /* Supporting */
+  --color-surface-soft: #f6f6f6;     /* subtle section fill */
+  --color-error: #c8102e;
 
   /* Radius tokens */
   --radius-xs: 4px;
   --radius-sm: 5px;
+  --radius-pill: 9999px;
 
-  /* Shadow tokens (Stripe-style: tight, subtle) */
-  --shadow-sm: 0 1px 1px rgba(6, 27, 49, 0.04), 0 2px 5px rgba(6, 27, 49, 0.06);
-  --shadow-md: 0 3px 6px rgba(6, 27, 49, 0.06), 0 8px 16px rgba(6, 27, 49, 0.06);
-  --shadow-focus: 0 0 0 1px var(--color-text-secondary), 0 0 0 4px rgba(83, 58, 253, 0.18);
+  /* Shadow tokens (Sephora-style soft halo) */
+  --shadow-halo: rgba(0, 0, 0, 0.2) 0px 0px 6px 0px;
+  --shadow-soft: rgba(0, 0, 0, 0.06) 0px 1px 3px 0px;
 
   /* Motion tokens */
-  --duration-instant: 100ms;
-  --duration-fast: 200ms;
-  --duration-normal: 240ms;
-  --duration-slow: 300ms;
-  --duration-slower: 400ms;
+  --duration-instant: 200ms;
+  --duration-fast: 300ms;
 }
 
 @theme inline {
-  --color-text: var(--color-text-primary);
-  --color-text-strong: var(--color-text-tertiary);
-  --color-accent: var(--color-text-secondary);
-  --color-paper: var(--color-canvas);
-  --color-accent-soft: var(--color-surface-strong);
-  --font-sans: var(--font-inter), "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --color-canvas: var(--color-paper);
+  --color-body: var(--color-text);
+  --color-heading: var(--color-text-strong);
+  --color-link: var(--color-accent);
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 body {
-  background: var(--color-canvas);
-  color: var(--color-text-primary);
-  font-family: var(--font-inter), "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 16px;
+  background: var(--color-paper);
+  color: var(--color-text);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 20px;
+  line-height: 17.5px;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: 0;
 }
 
-/* Focus-visible — Stripe-style purple ring (WCAG 2.2 AA) */
+/* Focus-visible — Sephora-style blue ring (WCAG 2.2 AA) */
 :where(button, a, input, textarea, [tabindex]):focus-visible {
-  outline: none;
-  box-shadow: var(--shadow-focus);
-  border-radius: var(--radius-sm);
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
 }
 
 ::selection {
-  background: rgba(83, 58, 253, 0.18);
-  color: var(--color-text-tertiary);
+  background: var(--color-ink);
+  color: var(--color-paper);
 }

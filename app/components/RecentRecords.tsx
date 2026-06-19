@@ -30,12 +30,9 @@ export function RecentRecords() {
 
   if (loading) {
     return (
-      <div className="space-y-2">
+      <div className="space-y-0 divide-y divide-[var(--color-border-subtle)]">
         {[...Array(3)].map((_, i) => (
-          <div
-            key={i}
-            className="h-20 rounded-[5px] border border-[var(--color-border-subtle)] bg-[var(--color-surface-strong)]/40 animate-pulse"
-          />
+          <div key={i} className="h-20 bg-[var(--color-surface-soft)] animate-pulse" />
         ))}
       </div>
     );
@@ -43,11 +40,11 @@ export function RecentRecords() {
 
   if (records.length === 0) {
     return (
-      <div className="rounded-[5px] border border-[var(--color-border-subtle)] bg-white py-12 text-center">
-        <p className="text-sm font-medium text-[var(--color-text-tertiary)]">
+      <div className="py-12 text-center">
+        <p className="text-sm font-bold text-black">
           まだ記録がありません
         </p>
-        <p className="mt-1 text-xs font-light text-[var(--color-text-primary)]">
+        <p className="mt-1 text-xs font-normal text-[var(--color-text)]">
           今日の体調を記録してみましょう
         </p>
       </div>
@@ -55,21 +52,21 @@ export function RecentRecords() {
   }
 
   return (
-    <ul className="space-y-2">
+    <ul className="divide-y divide-[var(--color-border-subtle)]">
       {records.map((record) => (
         <li key={record.id}>
           <Link
             href={`/record/${record.id}`}
             aria-label={`${formatDate(record.recorded_at)}の記録を編集`}
-            className="group block rounded-[5px] border border-[var(--color-border-subtle)] bg-white p-4 transition-all duration-200 hover:border-[var(--color-border-strong)] hover:shadow-[var(--shadow-sm)]"
+            className="group block py-4 transition-colors duration-200 hover:bg-[var(--color-surface-soft)] -mx-2 px-2"
           >
             <div className="flex items-center justify-between gap-2">
-              <p className="text-sm font-semibold text-[var(--color-text-tertiary)]">
+              <p className="text-sm font-bold text-black">
                 {formatDate(record.recorded_at)}
               </p>
               <span
                 aria-hidden
-                className="text-xs font-medium text-[var(--color-text-secondary)] opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--color-accent)] opacity-0 transition-opacity duration-200 group-hover:opacity-100"
               >
                 編集 →
               </span>
@@ -83,7 +80,7 @@ export function RecentRecords() {
                 {record.symptoms.map((s) => (
                   <span
                     key={s}
-                    className="rounded-[4px] border border-[var(--color-border-subtle)] bg-[var(--color-surface-strong)]/60 px-1.5 py-0.5 text-[11px] font-medium text-[var(--color-text-tertiary)]"
+                    className="rounded-[4px] border border-[var(--color-border-subtle)] bg-white px-1.5 py-0.5 text-[11px] font-normal text-[var(--color-text)]"
                   >
                     {s}
                   </span>
@@ -91,7 +88,7 @@ export function RecentRecords() {
               </div>
             )}
             {record.memo && (
-              <p className="mt-2 border-t border-[var(--color-border-subtle)] pt-2 text-xs font-light leading-relaxed text-[var(--color-text-primary)] line-clamp-2">
+              <p className="mt-2 text-xs font-normal leading-relaxed text-[var(--color-text)] line-clamp-2">
                 {record.memo}
               </p>
             )}

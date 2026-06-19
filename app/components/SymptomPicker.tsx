@@ -27,11 +27,11 @@ export function SymptomPicker({ selected, onChange }: SymptomPickerProps) {
             aria-pressed={active}
             onClick={() => toggle(symptom)}
             className={`
-              rounded-[5px] border px-2.5 py-1 text-xs transition-colors duration-200
+              rounded-full border px-3 py-1.5 text-xs transition-colors duration-200
               ${
                 active
-                  ? "border-[var(--color-text-secondary)] bg-[var(--color-purple-soft)] text-[var(--color-text-secondary)] font-medium"
-                  : "border-[var(--color-border-default)] bg-white text-[var(--color-text-primary)] hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-strong)]/50"
+                  ? "border-black bg-black text-white font-bold"
+                  : "border-[var(--color-border-default)] bg-white text-black hover:border-black font-normal"
               }
             `}
           >
