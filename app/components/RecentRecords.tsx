@@ -40,11 +40,11 @@ export function RecentRecords() {
 
   if (records.length === 0) {
     return (
-      <div className="py-12 text-center">
-        <p className="text-sm font-bold text-black">
-          まだ記録がありません
+      <div className="py-14 text-center">
+        <p className="text-[18px] italic text-black">
+          no entries yet
         </p>
-        <p className="mt-1 text-xs font-normal text-[var(--color-text)]">
+        <p className="mt-2 text-[12px] text-[var(--color-text)]">
           今日の体調を記録してみましょう
         </p>
       </div>
@@ -58,17 +58,17 @@ export function RecentRecords() {
           <Link
             href={`/record/${record.id}`}
             aria-label={`${formatDate(record.recorded_at)}の記録を編集`}
-            className="group block py-4 transition-colors duration-200 hover:bg-[var(--color-surface-soft)] -mx-2 px-2"
+            className="group block py-4 transition-colors duration-500 hover:bg-[var(--color-surface-soft)] -mx-2 px-2"
           >
             <div className="flex items-center justify-between gap-2">
-              <p className="text-sm font-bold text-black">
+              <p className="text-[15px] text-black tracking-[0.02em]">
                 {formatDate(record.recorded_at)}
               </p>
               <span
                 aria-hidden
-                className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--color-accent)] opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                className="text-[11px] italic text-[var(--color-accent-ink)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
               >
-                編集 →
+                edit →
               </span>
             </div>
             <div className="mt-2 flex flex-wrap gap-1.5">
@@ -80,7 +80,7 @@ export function RecentRecords() {
                 {record.symptoms.map((s) => (
                   <span
                     key={s}
-                    className="rounded-[4px] border border-[var(--color-border-subtle)] bg-white px-1.5 py-0.5 text-[11px] font-normal text-[var(--color-text)]"
+                    className="rounded-[5px] border border-[var(--color-border-subtle)] bg-white px-2 py-0.5 text-[11px] text-[var(--color-text)]"
                   >
                     {s}
                   </span>
@@ -88,7 +88,7 @@ export function RecentRecords() {
               </div>
             )}
             {record.memo && (
-              <p className="mt-2 text-xs font-normal leading-relaxed text-[var(--color-text)] line-clamp-2">
+              <p className="mt-2 text-[12px] leading-[1.7] italic text-[var(--color-text)] line-clamp-2">
                 {record.memo}
               </p>
             )}

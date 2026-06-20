@@ -17,7 +17,7 @@ export function SymptomPicker({ selected, onChange }: SymptomPickerProps) {
   };
 
   return (
-    <div className="flex flex-wrap gap-1.5">
+    <div className="flex flex-wrap gap-2">
       {SYMPTOMS.map((symptom) => {
         const active = selected.includes(symptom);
         return (
@@ -27,11 +27,11 @@ export function SymptomPicker({ selected, onChange }: SymptomPickerProps) {
             aria-pressed={active}
             onClick={() => toggle(symptom)}
             className={`
-              rounded-full border px-3 py-1.5 text-xs transition-colors duration-200
+              rounded-full border px-3.5 py-1.5 text-[12px] tracking-[0.02em] transition-colors duration-500
               ${
                 active
-                  ? "border-black bg-black text-white font-bold"
-                  : "border-[var(--color-border-default)] bg-white text-black hover:border-black font-normal"
+                  ? "border-black bg-[var(--color-surface-raised)] text-[var(--color-accent-ink)]"
+                  : "border-[var(--color-border-default)] bg-white text-[var(--color-text)] hover:border-black hover:text-black"
               }
             `}
           >

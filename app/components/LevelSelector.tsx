@@ -14,7 +14,7 @@ interface LevelSelectorProps {
 
 export function LevelSelector({ options, value, onChange }: LevelSelectorProps) {
   return (
-    <div className="grid grid-cols-5 gap-1.5">
+    <div className="grid grid-cols-5 gap-2">
       {options.map((opt) => {
         const selected = value === opt.value;
         return (
@@ -24,19 +24,19 @@ export function LevelSelector({ options, value, onChange }: LevelSelectorProps) 
             aria-pressed={selected}
             onClick={() => onChange(opt.value)}
             className={`
-              flex flex-col items-center justify-center gap-1 rounded-[4px] border px-1 py-2.5
-              transition-colors duration-200
+              flex flex-col items-center justify-center gap-1.5 rounded-[5px] border px-1 py-3
+              transition-colors duration-500
               ${
                 selected
-                  ? "border-black bg-black text-white"
-                  : "border-[var(--color-border-default)] bg-white text-black hover:border-black"
+                  ? "border-black bg-[var(--color-surface-raised)] text-[var(--color-accent-ink)]"
+                  : "border-[var(--color-border-default)] bg-white text-[var(--color-text)] hover:border-black hover:text-black"
               }
             `}
           >
             <span aria-hidden className="text-lg leading-none">
               {opt.icon}
             </span>
-            <span className="text-[10px] leading-tight text-center font-normal">
+            <span className="text-[10px] leading-tight text-center tracking-[0.04em]">
               {opt.label}
             </span>
           </button>

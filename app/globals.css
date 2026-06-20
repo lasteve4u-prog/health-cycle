@@ -1,64 +1,76 @@
 @import "tailwindcss";
 
 :root {
-  /* Color tokens — Sephora-style monochrome + single blue accent */
-  --color-ink: #000000;              /* primary surface for CTAs / strong text */
+  /* Color tokens — to/one cosmetics: muted neutrals + soft peach accent */
+  --color-ink: #000000;              /* primary surface for CTAs */
   --color-paper: #ffffff;            /* canvas */
-  --color-text: #666666;             /* default body text — neutral gray */
+  --color-text: #727171;             /* body — warm mid gray */
   --color-text-strong: #000000;      /* headings */
-  --color-text-inverse: #ffffff;     /* on black surfaces */
-  --color-accent: #136bea;           /* link / focus accent */
+  --color-text-inverse: #ffffff;     /* on dark surfaces */
+  --color-accent: #e0c6c9;           /* soft peach — selection / raised */
+  --color-accent-ink: #5a3a3e;       /* ink on peach for contrast */
 
   /* Borders */
   --color-border-subtle: #ececec;
-  --color-border-default: #d6d6d6;
+  --color-border-default: #c3c3bf;   /* warm light gray */
+  --color-border-muted: #717170;     /* muted mid gray */
   --color-border-strong: #000000;
 
-  /* Supporting */
-  --color-surface-soft: #f6f6f6;     /* subtle section fill */
-  --color-error: #c8102e;
+  /* Surfaces */
+  --color-surface-soft: #f5f4f1;     /* off-white warm */
+  --color-surface-muted: #c3c3bf;    /* warm light gray block */
+  --color-surface-raised: #e0c6c9;   /* peach raised */
+  --color-error: #8a3a3e;
 
   /* Radius tokens */
-  --radius-xs: 4px;
-  --radius-sm: 5px;
+  --radius-xs: 5px;
   --radius-pill: 9999px;
 
-  /* Shadow tokens (Sephora-style soft halo) */
-  --shadow-halo: rgba(0, 0, 0, 0.2) 0px 0px 6px 0px;
-  --shadow-soft: rgba(0, 0, 0, 0.06) 0px 1px 3px 0px;
+  /* Shadow tokens — soft, low contrast */
+  --shadow-soft: rgba(0, 0, 0, 0.04) 0px 1px 2px 0px;
 
-  /* Motion tokens */
-  --duration-instant: 200ms;
-  --duration-fast: 300ms;
+  /* Motion tokens — slower, editorial */
+  --duration-instant: 300ms;
+  --duration-fast: 500ms;
+  --duration-normal: 700ms;
 }
 
 @theme inline {
   --color-canvas: var(--color-paper);
   --color-body: var(--color-text);
   --color-heading: var(--color-text-strong);
-  --color-link: var(--color-accent);
-  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --color-link: var(--color-accent-ink);
+  --font-serif: var(--font-eb-garamond), "EB Garamond", "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", メイリオ, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+  --font-sans: var(--font-eb-garamond), "EB Garamond", "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", メイリオ, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+}
+
+html {
+  font-family: var(--font-eb-garamond), "EB Garamond", "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", メイリオ, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
 }
 
 body {
   background: var(--color-paper);
   color: var(--color-text);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
-  line-height: 17.5px;
+  line-height: 19.2px;
   -webkit-font-smoothing: antialiased;
-  letter-spacing: 0;
+  letter-spacing: 0.01em;
 }
 
-/* Focus-visible — Sephora-style blue ring (WCAG 2.2 AA) */
+/* Focus-visible — peach ring on dark, ink ring elsewhere (WCAG 2.2 AA) */
 :where(button, a, input, textarea, [tabindex]):focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-ink);
   outline-offset: 2px;
   border-radius: var(--radius-xs);
 }
 
+.on-dark :where(button, a, input, textarea, [tabindex]):focus-visible,
+:where(.on-dark) :focus-visible {
+  outline-color: var(--color-accent);
+}
+
 ::selection {
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
 }

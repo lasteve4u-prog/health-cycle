@@ -19,9 +19,9 @@ interface ChartPoint {
   condition: number;
 }
 
-const BLACK = "#000000";
-const BLUE = "#136bea";
-const AXIS = "#666666";
+const INK = "#000000";
+const PEACH = "#b88a8e";
+const AXIS = "#727171";
 const GRID = "#ececec";
 
 function formatShortDate(dateStr: string) {
@@ -63,11 +63,11 @@ export function MoodTrendChart() {
 
   if (data.length === 0) {
     return (
-      <div className="py-12 text-center">
-        <p className="text-sm font-bold text-black">
-          グラフを表示するデータがありません
+      <div className="py-14 text-center">
+        <p className="text-[18px] italic text-black">
+          no data yet
         </p>
-        <p className="mt-1 text-xs font-normal text-[var(--color-text)]">
+        <p className="mt-2 text-[12px] text-[var(--color-text)]">
           記録を続けると推移が見られます
         </p>
       </div>
@@ -76,17 +76,17 @@ export function MoodTrendChart() {
 
   return (
     <div className="bg-white pt-2">
-      <div className="mb-4 flex items-center gap-4 px-1">
-        <div className="flex items-center gap-1.5">
+      <div className="mb-5 flex items-center gap-5 px-1">
+        <div className="flex items-center gap-2">
           <span aria-hidden className="block h-2 w-2 rounded-full bg-black" />
-          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-black">
-            気分
+          <span className="text-[11px] uppercase tracking-[0.22em] text-black">
+            mood
           </span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <span aria-hidden className="block h-2 w-2 rounded-full bg-[#136bea]" />
-          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-black">
-            体調
+        <div className="flex items-center gap-2">
+          <span aria-hidden className="block h-2 w-2 rounded-full" style={{ background: PEACH }} />
+          <span className="text-[11px] uppercase tracking-[0.22em] text-black">
+            body
           </span>
         </div>
       </div>
@@ -109,33 +109,33 @@ export function MoodTrendChart() {
             />
             <Tooltip
               contentStyle={{
-                borderRadius: 4,
+                borderRadius: 5,
                 border: "1px solid #000000",
                 background: "#ffffff",
                 fontSize: 12,
-                fontWeight: 700,
-                boxShadow: "rgba(0, 0, 0, 0.2) 0px 0px 6px 0px",
+                fontWeight: 400,
+                boxShadow: "rgba(0, 0, 0, 0.04) 0px 1px 2px 0px",
               }}
-              labelStyle={{ color: BLACK, fontWeight: 700 }}
-              cursor={{ stroke: BLACK, strokeWidth: 1, strokeDasharray: "3 3" }}
+              labelStyle={{ color: INK, fontStyle: "italic" }}
+              cursor={{ stroke: INK, strokeWidth: 1, strokeDasharray: "3 3" }}
             />
             <Line
               type="monotone"
               dataKey="mood"
-              name="気分"
-              stroke={BLACK}
-              strokeWidth={2}
-              dot={{ r: 2.5, fill: BLACK, stroke: BLACK }}
-              activeDot={{ r: 4.5, fill: BLACK, stroke: "#ffffff", strokeWidth: 2 }}
+              name="mood"
+              stroke={INK}
+              strokeWidth={1.5}
+              dot={{ r: 2.5, fill: INK, stroke: INK }}
+              activeDot={{ r: 4.5, fill: INK, stroke: "#ffffff", strokeWidth: 2 }}
             />
             <Line
               type="monotone"
               dataKey="condition"
-              name="体調"
-              stroke={BLUE}
-              strokeWidth={2}
-              dot={{ r: 2.5, fill: BLUE, stroke: BLUE }}
-              activeDot={{ r: 4.5, fill: BLUE, stroke: "#ffffff", strokeWidth: 2 }}
+              name="body"
+              stroke={PEACH}
+              strokeWidth={1.5}
+              dot={{ r: 2.5, fill: PEACH, stroke: PEACH }}
+              activeDot={{ r: 4.5, fill: PEACH, stroke: "#ffffff", strokeWidth: 2 }}
             />
           </LineChart>
         </ResponsiveContainer>
