@@ -16,9 +16,9 @@ export function LogoutButton() {
   return (
     <button
       onClick={handleLogout}
-      className="text-[11px] uppercase tracking-[0.28em] text-white transition-opacity duration-500 hover:opacity-60"
+      className="rounded-[var(--radius-pill)] border border-[var(--color-border-default)] bg-white px-3 py-1.5 text-[12px] font-semibold text-[var(--color-text)] transition-colors duration-300 hover:border-[var(--color-coral)] hover:text-[var(--color-coral)]"
     >
-      sign out
+      ログアウト
     </button>
   );
 }

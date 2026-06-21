@@ -19,10 +19,10 @@ interface ChartPoint {
   condition: number;
 }
 
-const INK = "#000000";
-const PEACH = "#b88a8e";
-const AXIS = "#727171";
-const GRID = "#ececec";
+const CORAL = "#ff8c94";
+const CORAL_SOFT = "#ffb3b8";
+const AXIS = "#b08a8a";
+const GRID = "#fff0eb";
 
 function formatShortDate(dateStr: string) {
   const d = new Date(dateStr + "T00:00:00");
@@ -58,16 +58,16 @@ export function MoodTrendChart() {
   }, []);
 
   if (loading) {
-    return <div className="h-64 bg-[var(--color-surface-soft)] animate-pulse" />;
+    return <div className="h-56 animate-pulse rounded-[var(--radius-md)] bg-[var(--color-surface-cream)]" />;
   }
 
   if (data.length === 0) {
     return (
-      <div className="py-14 text-center">
-        <p className="text-[18px] italic text-black">
-          no data yet
+      <div className="py-12 text-center">
+        <p className="text-[16px] font-bold text-[var(--color-text-strong)]">
+          まだデータがありません
         </p>
-        <p className="mt-2 text-[12px] text-[var(--color-text)]">
+        <p className="mt-2 text-[13px] text-[var(--color-text-soft)]">
           記録を続けると推移が見られます
         </p>
       </div>
@@ -75,19 +75,15 @@ export function MoodTrendChart() {
   }
 
   return (
-    <div className="bg-white pt-2">
-      <div className="mb-5 flex items-center gap-5 px-1">
-        <div className="flex items-center gap-2">
-          <span aria-hidden className="block h-2 w-2 rounded-full bg-black" />
-          <span className="text-[11px] uppercase tracking-[0.22em] text-black">
-            mood
-          </span>
+    <div>
+      <div className="mb-4 flex items-center gap-5">
+        <div className="flex items-center gap-1.5">
+          <span aria-hidden className="block h-2.5 w-2.5 rounded-full" style={{ background: CORAL }} />
+          <span className="text-[13px] font-semibold text-[var(--color-text)]">気分</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span aria-hidden className="block h-2 w-2 rounded-full" style={{ background: PEACH }} />
-          <span className="text-[11px] uppercase tracking-[0.22em] text-black">
-            body
-          </span>
+        <div className="flex items-center gap-1.5">
+          <span aria-hidden className="block h-2.5 w-2.5 rounded-full" style={{ background: CORAL_SOFT }} />
+          <span className="text-[13px] font-semibold text-[var(--color-text)]">体調</span>
         </div>
       </div>
       <div className="h-56">
@@ -96,46 +92,46 @@ export function MoodTrendChart() {
             <CartesianGrid stroke={GRID} strokeDasharray="0" vertical={false} />
             <XAxis
               dataKey="date"
-              tick={{ fill: AXIS, fontSize: 11 }}
+              tick={{ fill: AXIS, fontSize: 12 }}
               tickLine={false}
               axisLine={{ stroke: GRID, strokeWidth: 1 }}
             />
             <YAxis
               domain={[1, 5]}
               ticks={[1, 2, 3, 4, 5]}
-              tick={{ fill: AXIS, fontSize: 11 }}
+              tick={{ fill: AXIS, fontSize: 12 }}
               tickLine={false}
               axisLine={{ stroke: GRID, strokeWidth: 1 }}
             />
             <Tooltip
               contentStyle={{
-                borderRadius: 5,
-                border: "1px solid #000000",
+                borderRadius: 16,
+                border: "1px solid #ffe0d8",
                 background: "#ffffff",
-                fontSize: 12,
-                fontWeight: 400,
-                boxShadow: "rgba(0, 0, 0, 0.04) 0px 1px 2px 0px",
+                fontSize: 13,
+                fontWeight: 600,
+                boxShadow: "rgba(255, 140, 148, 0.2) 0px 4px 16px 0px",
               }}
-              labelStyle={{ color: INK, fontStyle: "italic" }}
-              cursor={{ stroke: INK, strokeWidth: 1, strokeDasharray: "3 3" }}
+              labelStyle={{ color: "#5a3a3a", fontWeight: 700 }}
+              cursor={{ stroke: CORAL, strokeWidth: 1, strokeDasharray: "3 3" }}
             />
             <Line
               type="monotone"
               dataKey="mood"
-              name="mood"
-              stroke={INK}
-              strokeWidth={1.5}
-              dot={{ r: 2.5, fill: INK, stroke: INK }}
-              activeDot={{ r: 4.5, fill: INK, stroke: "#ffffff", strokeWidth: 2 }}
+              name="気分"
+              stroke={CORAL}
+              strokeWidth={2.5}
+              dot={{ r: 3.5, fill: CORAL, stroke: CORAL }}
+              activeDot={{ r: 5.5, fill: CORAL, stroke: "#ffffff", strokeWidth: 2 }}
             />
             <Line
               type="monotone"
               dataKey="condition"
-              name="body"
-              stroke={PEACH}
-              strokeWidth={1.5}
-              dot={{ r: 2.5, fill: PEACH, stroke: PEACH }}
-              activeDot={{ r: 4.5, fill: PEACH, stroke: "#ffffff", strokeWidth: 2 }}
+              name="体調"
+              stroke={CORAL_SOFT}
+              strokeWidth={2.5}
+              dot={{ r: 3.5, fill: CORAL_SOFT, stroke: CORAL_SOFT }}
+              activeDot={{ r: 5.5, fill: CORAL_SOFT, stroke: "#ffffff", strokeWidth: 2 }}
             />
           </LineChart>
         </ResponsiveContainer>

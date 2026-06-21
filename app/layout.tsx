@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { EB_Garamond } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 
-const ebGaramond = EB_Garamond({
+const nunito = Nunito({
   subsets: ["latin"],
-  variable: "--font-eb-garamond",
+  variable: "--font-nunito",
   display: "swap",
 });
 
@@ -19,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className={`${ebGaramond.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="ja" className={`${nunito.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col bg-[var(--color-surface-soft)]">{children}</body>
     </html>
   );
 }
