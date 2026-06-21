@@ -1,14 +1,15 @@
 const badgeBase =
-  "inline-flex items-center gap-1 rounded-[5px] border px-2 py-0.5 text-[11px] tracking-[0.02em]";
+  "inline-flex items-center gap-1 rounded-[var(--radius-pill)] border px-2.5 py-0.5 text-[12px] font-semibold";
 
-const MUTED = "border-[var(--color-border-default)] bg-white text-[var(--color-text)]";
-const STRONG = "border-[var(--color-border-muted)] bg-white text-black";
-const ACCENT = "border-black bg-[var(--color-surface-raised)] text-[var(--color-accent-ink)]";
+const MUTED = "border-[var(--color-border-subtle)] bg-white text-[var(--color-text-soft)]";
+const DEFAULT = "border-[var(--color-border-default)] bg-white text-[var(--color-text)]";
+const STRONG = "border-[var(--color-border-default)] bg-[var(--color-surface-cream)] text-[var(--color-text-strong)]";
+const ACCENT = "border-[var(--color-coral)] bg-[var(--color-coral)] text-white";
 
 const MOOD_MAP: Record<number, { icon: string; label: string; style: string }> = {
   1: { icon: "😞", label: "とても悪い", style: MUTED },
-  2: { icon: "😕", label: "悪い", style: MUTED },
-  3: { icon: "😐", label: "普通", style: STRONG },
+  2: { icon: "😕", label: "悪い", style: DEFAULT },
+  3: { icon: "😐", label: "普通", style: DEFAULT },
   4: { icon: "🙂", label: "良い", style: STRONG },
   5: { icon: "😊", label: "とても良い", style: ACCENT },
 };
@@ -24,8 +25,8 @@ export function MoodBadge({ value }: { value: number }) {
 
 const CONDITION_MAP: Record<number, { icon: string; label: string; style: string }> = {
   1: { icon: "🤒", label: "とても辛い", style: MUTED },
-  2: { icon: "😣", label: "辛い", style: MUTED },
-  3: { icon: "😐", label: "普通", style: STRONG },
+  2: { icon: "😣", label: "辛い", style: DEFAULT },
+  3: { icon: "😐", label: "普通", style: DEFAULT },
   4: { icon: "💪", label: "良い", style: STRONG },
   5: { icon: "✨", label: "絶好調", style: ACCENT },
 };

@@ -30,7 +30,7 @@ const CONDITION_OPTIONS = [
 type Status = "idle" | "loading" | "success" | "error";
 
 const sectionLabel =
-  "mb-3 block text-[11px] uppercase tracking-[0.28em] text-black";
+  "mb-3 block text-[14px] font-bold text-[var(--color-text-strong)]";
 
 function formatJaDate(isoDate: string) {
   return new Date(isoDate + "T00:00:00").toLocaleDateString("ja-JP", {
@@ -106,17 +106,17 @@ export function RecordForm({ initialRecord }: RecordFormProps = {}) {
       <div className="flex flex-col items-center justify-center gap-5 py-14 text-center">
         <div
           aria-hidden
-          className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--color-surface-raised)] text-[var(--color-accent-ink)]"
+          className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--color-coral)] text-white shadow-[var(--shadow-glow)]"
         >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
         <div>
-          <h2 className="text-[22px] font-normal text-black">
-            <span className="italic">{isEdit ? "updated" : "saved"}</span>
+          <h2 className="text-[20px] font-bold text-[var(--color-text-strong)]">
+            {isEdit ? "更新しました" : "保存しました"}
           </h2>
-          <p className="mt-2 text-[12px] text-[var(--color-text)]">
+          <p className="mt-2 text-[13px] text-[var(--color-text-soft)]">
             {recordedAtLabel}
           </p>
         </div>
@@ -125,9 +125,9 @@ export function RecordForm({ initialRecord }: RecordFormProps = {}) {
             <button
               type="button"
               onClick={() => router.push("/")}
-              className="rounded-[5px] bg-black px-6 py-3 text-[12px] uppercase tracking-[0.18em] text-white transition-colors duration-500 hover:bg-[var(--color-accent-ink)]"
+              className="rounded-[var(--radius-pill)] bg-[var(--color-coral)] px-6 py-3 text-[14px] font-bold text-white shadow-[var(--shadow-glow)] transition-opacity duration-300 hover:opacity-90"
             >
-              dashboard
+              ダッシュボードへ
             </button>
           ) : (
             <button
@@ -139,9 +139,9 @@ export function RecordForm({ initialRecord }: RecordFormProps = {}) {
                 setMemo("");
                 setStatus("idle");
               }}
-              className="rounded-[5px] border border-black bg-white px-6 py-3 text-[12px] uppercase tracking-[0.18em] text-black transition-colors duration-500 hover:bg-black hover:text-white"
+              className="rounded-[var(--radius-pill)] border border-[var(--color-coral)] bg-white px-6 py-3 text-[14px] font-bold text-[var(--color-coral)] transition-colors duration-300 hover:bg-[var(--color-surface-cream)]"
             >
-              new entry
+              続けて記録する
             </button>
           )}
         </div>
@@ -150,18 +150,18 @@ export function RecordForm({ initialRecord }: RecordFormProps = {}) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
-      <div className="flex items-baseline justify-between border-b border-[var(--color-border-subtle)] pb-3">
-        <span className="text-[11px] uppercase tracking-[0.28em] text-black">
+    <form onSubmit={handleSubmit} className="space-y-7">
+      <div className="flex items-center justify-between rounded-[var(--radius-md)] bg-[var(--color-surface-cream)] px-5 py-3">
+        <span className="text-[12px] font-bold uppercase tracking-[0.18em] text-[var(--color-coral)]">
           {isEdit ? "editing" : "today"}
         </span>
-        <span className="text-[14px] italic text-black">
+        <span className="text-[14px] font-bold text-[var(--color-text-strong)]">
           {recordedAtLabel}
         </span>
       </div>
 
       <section>
-        <h2 className={sectionLabel}>気分 / mood</h2>
+        <h2 className={sectionLabel}>気分</h2>
         <LevelSelector
           options={MOOD_OPTIONS}
           value={mood}
@@ -170,7 +170,7 @@ export function RecordForm({ initialRecord }: RecordFormProps = {}) {
       </section>
 
       <section>
-        <h2 className={sectionLabel}>体調 / body</h2>
+        <h2 className={sectionLabel}>体調</h2>
         <LevelSelector
           options={CONDITION_OPTIONS}
           value={condition}
@@ -179,25 +179,25 @@ export function RecordForm({ initialRecord }: RecordFormProps = {}) {
       </section>
 
       <section>
-        <h2 className={sectionLabel}>症状 / symptoms</h2>
+        <h2 className={sectionLabel}>症状</h2>
         <SymptomPicker selected={symptoms} onChange={setSymptoms} />
       </section>
 
       <section>
-        <h2 className={sectionLabel}>メモ / memo</h2>
+        <h2 className={sectionLabel}>メモ</h2>
         <textarea
           value={memo}
           onChange={(e) => setMemo(e.target.value)}
           placeholder="今日の気づきや出来事…"
           rows={3}
-          className="w-full rounded-[5px] border border-[var(--color-border-default)] bg-white px-3.5 py-2.5 text-[14px] text-black placeholder-[var(--color-text)] resize-none transition-colors duration-500 focus:outline-none focus:border-black"
+          className="w-full resize-none rounded-[var(--radius-md)] border border-[var(--color-border-default)] bg-white px-4 py-3 text-[14px] text-[var(--color-text)] placeholder-[var(--color-text-soft)] transition-colors duration-300 focus:border-[var(--color-coral)] focus:outline-none"
         />
       </section>
 
       {status === "error" && (
         <p
           role="alert"
-          className="rounded-[5px] border border-[var(--color-error)] bg-[var(--color-error)]/5 px-3 py-2.5 text-[12px] text-[var(--color-error)]"
+          className="rounded-[var(--radius-md)] border border-[var(--color-error)] bg-white px-4 py-3 text-[13px] font-semibold text-[var(--color-error)]"
         >
           {errorMessage}
         </p>
@@ -206,13 +206,13 @@ export function RecordForm({ initialRecord }: RecordFormProps = {}) {
       <button
         type="submit"
         disabled={!mood || !condition || status === "loading"}
-        className="w-full rounded-[5px] bg-black py-3.5 text-[13px] uppercase tracking-[0.18em] text-white transition-colors duration-500 hover:bg-[var(--color-accent-ink)] disabled:cursor-not-allowed disabled:bg-[var(--color-border-default)] disabled:text-white"
+        className="w-full rounded-[var(--radius-pill)] bg-[var(--color-coral)] py-4 text-[15px] font-bold text-white shadow-[var(--shadow-glow)] transition-opacity duration-300 hover:opacity-90 disabled:cursor-not-allowed disabled:bg-[var(--color-border-default)] disabled:text-white disabled:shadow-none"
       >
         {status === "loading"
           ? "保存中…"
           : isEdit
-            ? "save changes"
-            : "save entry"}
+            ? "変更を保存する"
+            : "この内容で記録する"}
       </button>
     </form>
   );

@@ -1,76 +1,76 @@
 @import "tailwindcss";
 
 :root {
-  /* Color tokens — to/one cosmetics: muted neutrals + soft peach accent */
-  --color-ink: #000000;              /* primary surface for CTAs */
-  --color-paper: #ffffff;            /* canvas */
-  --color-text: #727171;             /* body — warm mid gray */
-  --color-text-strong: #000000;      /* headings */
+  /* romand cosmetics tokens — soft coral / cream / rounded */
+  --color-ink: #5a3a3a;              /* warm brown text */
+  --color-paper: #ffffff;            /* white canvas */
+  --color-text: #5a3a3a;             /* body — warm brown */
+  --color-text-strong: #3a2424;      /* headings */
+  --color-text-soft: #b08a8a;        /* secondary meta */
   --color-text-inverse: #ffffff;     /* on dark surfaces */
-  --color-accent: #e0c6c9;           /* soft peach — selection / raised */
-  --color-accent-ink: #5a3a3e;       /* ink on peach for contrast */
+  --color-coral: #ff8c94;            /* primary accent */
+  --color-coral-soft: #ffb3b8;       /* secondary accent / inverse text */
 
   /* Borders */
-  --color-border-subtle: #ececec;
-  --color-border-default: #c3c3bf;   /* warm light gray */
-  --color-border-muted: #717170;     /* muted mid gray */
-  --color-border-strong: #000000;
+  --color-border-subtle: #fff0eb;
+  --color-border-default: #ffe0d8;
+  --color-border-strong: #ff8c94;
 
   /* Surfaces */
-  --color-surface-soft: #f5f4f1;     /* off-white warm */
-  --color-surface-muted: #c3c3bf;    /* warm light gray block */
-  --color-surface-raised: #e0c6c9;   /* peach raised */
-  --color-error: #8a3a3e;
+  --color-surface-soft: #fffaf7;     /* near-white cream */
+  --color-surface-cream: #fff0eb;    /* peach cream raised */
+  --color-surface-raised: #ffffff;
+  --color-error: #ff5a6a;
 
-  /* Radius tokens */
-  --radius-xs: 5px;
-  --radius-pill: 9999px;
+  /* Radius — generous, pillowy */
+  --radius-xs: 4px;
+  --radius-sm: 5px;
+  --radius-md: 32px;
+  --radius-lg: 48px;
+  --radius-pill: 999px;
 
-  /* Shadow tokens — soft, low contrast */
-  --shadow-soft: rgba(0, 0, 0, 0.04) 0px 1px 2px 0px;
+  /* Shadow — soft coral glow */
+  --shadow-soft: rgba(255, 140, 148, 0.08) 0px 4px 20px 0px;
+  --shadow-glow: rgba(255, 140, 148, 0.2) 0px 4px 16px 0px;
 
-  /* Motion tokens — slower, editorial */
+  /* Motion */
   --duration-instant: 300ms;
-  --duration-fast: 500ms;
-  --duration-normal: 700ms;
 }
 
 @theme inline {
   --color-canvas: var(--color-paper);
   --color-body: var(--color-text);
   --color-heading: var(--color-text-strong);
-  --color-link: var(--color-accent-ink);
-  --font-serif: var(--font-eb-garamond), "EB Garamond", "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", メイリオ, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
-  --font-sans: var(--font-eb-garamond), "EB Garamond", "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", メイリオ, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+  --color-link: var(--color-coral);
+  --font-sans: var(--font-nunito), "Nunito", -apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
 }
 
 html {
-  font-family: var(--font-eb-garamond), "EB Garamond", "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", メイリオ, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+  font-family: var(--font-nunito), "Nunito", -apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
 }
 
 body {
-  background: var(--color-paper);
+  background: var(--color-surface-soft);
   color: var(--color-text);
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 19.2px;
+  line-height: 25.6px;
   -webkit-font-smoothing: antialiased;
-  letter-spacing: 0.01em;
 }
 
-/* Focus-visible — peach ring on dark, ink ring elsewhere (WCAG 2.2 AA) */
+/* Focus-visible — WCAG 2.2 AA */
 :where(button, a, input, textarea, [tabindex]):focus-visible {
-  outline: 2px solid var(--color-ink);
+  outline: 2px solid var(--color-coral);
   outline-offset: 2px;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-sm);
 }
 
 .on-dark :where(button, a, input, textarea, [tabindex]):focus-visible,
 :where(.on-dark) :focus-visible {
-  outline-color: var(--color-accent);
+  outline-color: var(--color-coral-soft);
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: var(--color-accent-ink);
+  background: var(--color-coral);
+  color: #ffffff;
 }

@@ -30,21 +30,21 @@ export function RecentRecords() {
 
   if (loading) {
     return (
-      <div className="space-y-0 divide-y divide-[var(--color-border-subtle)]">
+      <ul className="divide-y divide-[var(--color-border-subtle)]">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="h-20 bg-[var(--color-surface-soft)] animate-pulse" />
+          <li key={i} className="h-24 animate-pulse bg-[var(--color-surface-soft)]" />
         ))}
-      </div>
+      </ul>
     );
   }
 
   if (records.length === 0) {
     return (
-      <div className="py-14 text-center">
-        <p className="text-[18px] italic text-black">
-          no entries yet
+      <div className="px-5 py-12 text-center">
+        <p className="text-[16px] font-bold text-[var(--color-text-strong)]">
+          まだ記録がありません
         </p>
-        <p className="mt-2 text-[12px] text-[var(--color-text)]">
+        <p className="mt-2 text-[13px] text-[var(--color-text-soft)]">
           今日の体調を記録してみましょう
         </p>
       </div>
@@ -58,17 +58,17 @@ export function RecentRecords() {
           <Link
             href={`/record/${record.id}`}
             aria-label={`${formatDate(record.recorded_at)}の記録を編集`}
-            className="group block py-4 transition-colors duration-500 hover:bg-[var(--color-surface-soft)] -mx-2 px-2"
+            className="group block px-5 py-4 transition-colors duration-300 hover:bg-[var(--color-surface-soft)]"
           >
             <div className="flex items-center justify-between gap-2">
-              <p className="text-[15px] text-black tracking-[0.02em]">
+              <p className="text-[15px] font-bold text-[var(--color-text-strong)]">
                 {formatDate(record.recorded_at)}
               </p>
               <span
                 aria-hidden
-                className="text-[11px] italic text-[var(--color-accent-ink)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                className="text-[12px] font-semibold text-[var(--color-coral)] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
               >
-                edit →
+                編集 →
               </span>
             </div>
             <div className="mt-2 flex flex-wrap gap-1.5">
@@ -76,11 +76,11 @@ export function RecentRecords() {
               <ConditionBadge value={record.condition} />
             </div>
             {record.symptoms.length > 0 && (
-              <div className="mt-2 flex flex-wrap gap-1">
+              <div className="mt-2 flex flex-wrap gap-1.5">
                 {record.symptoms.map((s) => (
                   <span
                     key={s}
-                    className="rounded-[5px] border border-[var(--color-border-subtle)] bg-white px-2 py-0.5 text-[11px] text-[var(--color-text)]"
+                    className="rounded-[var(--radius-pill)] border border-[var(--color-border-default)] bg-[var(--color-surface-cream)] px-2.5 py-0.5 text-[12px] text-[var(--color-text)]"
                   >
                     {s}
                   </span>
@@ -88,7 +88,7 @@ export function RecentRecords() {
               </div>
             )}
             {record.memo && (
-              <p className="mt-2 text-[12px] leading-[1.7] italic text-[var(--color-text)] line-clamp-2">
+              <p className="mt-2 line-clamp-2 text-[13px] leading-[1.6] text-[var(--color-text)]">
                 {record.memo}
               </p>
             )}
