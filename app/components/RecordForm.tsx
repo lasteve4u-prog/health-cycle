@@ -121,29 +121,13 @@ export function RecordForm({ initialRecord }: RecordFormProps = {}) {
           </p>
         </div>
         <div className="mt-2 flex gap-3">
-          {isEdit ? (
-            <button
-              type="button"
-              onClick={() => router.push("/")}
-              className="rounded-[var(--radius-pill)] bg-[var(--color-coral)] px-6 py-3 text-[14px] font-bold text-white shadow-[var(--shadow-glow)] transition-opacity duration-300 hover:opacity-90"
-            >
-              ダッシュボードへ
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => {
-                setMood(null);
-                setCondition(null);
-                setSymptoms([]);
-                setMemo("");
-                setStatus("idle");
-              }}
-              className="rounded-[var(--radius-pill)] border border-[var(--color-coral)] bg-white px-6 py-3 text-[14px] font-bold text-[var(--color-coral)] transition-colors duration-300 hover:bg-[var(--color-surface-cream)]"
-            >
-              続けて記録する
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={() => router.push("/")}
+            className="rounded-[var(--radius-pill)] bg-[var(--color-coral)] px-6 py-3 text-[14px] font-bold text-white shadow-[var(--shadow-glow)] transition-opacity duration-300 hover:opacity-90"
+          >
+            ダッシュボードを見る
+          </button>
         </div>
       </div>
     );
